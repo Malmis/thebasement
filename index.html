@@ -1,11 +1,562 @@
 <!DOCTYPE html>
-<html lang="sv">
+<html lang="sv" class="dark">
 <head>
     <meta charset="UTF-8">
-    <title>the basement</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Basement Uppsala | Tribute & Memories</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        basement: {
+                            gold: '#f59e0b',
+                            neonRed: '#ff2a5f',
+                            neonPurple: '#a855f7',
+                            neonCyan: '#06b6d4',
+                            darkBg: '#0b0c10',
+                            cardBg: '#1f2833',
+                            lightBg: '#f3f4f6',
+                            lightCard: '#ffffff'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    },
+                    boxShadow: {
+                        'neon-red': '0 0 15px rgba(255, 42, 95, 0.5), 0 0 30px rgba(255, 42, 95, 0.2)',
+                        'neon-purple': '0 0 15px rgba(168, 85, 247, 0.5), 0 0 30px rgba(168, 85, 247, 0.2)',
+                        'neon-cyan': '0 0 15px rgba(6, 182, 212, 0.5), 0 0 30px rgba(6, 182, 212, 0.2)'
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Smooth scrolling and basic animations */
+        html {
+            scroll-behavior: smooth;
+        }
+        .neon-text-red {
+            text-shadow: 0 0 8px rgba(255, 42, 95, 0.7), 0 0 20px rgba(255, 42, 95, 0.4);
+        }
+        .neon-text-purple {
+            text-shadow: 0 0 8px rgba(168, 85, 247, 0.7), 0 0 20px rgba(168, 85, 247, 0.4);
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0b0c10;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #222;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ff2a5f;
+        }
+    </style>
 </head>
-<body>
-    <h1>GitHub Pages!</h1>
-    <p>Det här fungerar hur bra som helst.</p>
+<body class="bg-basement-lightBg dark:bg-basement-darkBg text-gray-900 dark:text-gray-100 font-sans transition-colors duration-300 min-h-screen flex flex-col selection:bg-basement-neonRed selection:text-white">
+
+    <!-- Header / Navigation -->
+    <header class="sticky top-0 z-40 backdrop-blur-md bg-white/70 dark:bg-basement-darkBg/80 border-b border-gray-200 dark:border-gray-800 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-lg bg-black dark:bg-black border border-basement-neonRed flex items-center justify-center shadow-neon-red group-hover:scale-105 transition-transform">
+                    <i class="fa-solid font-mono font-black text-basement-neonRed text-xl">B</i>
+                </div>
+                <div>
+                    <span class="text-xl font-black tracking-wider uppercase bg-gradient-to-r from-basement-neonRed via-basement-neonPurple to-basement-neonCyan bg-clip-text text-transparent">
+                        THE BASEMENT
+                    </span>
+                    <span class="block text-[10px] tracking-widest text-gray-500 dark:text-gray-400 font-mono uppercase">Uppsala • Archive</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium tracking-wide">
+                <a href="#about" class="hover:text-basement-neonRed transition-colors">Om Klubben</a>
+                <a href="#timeline" class="hover:text-basement-neonRed transition-colors">Historia</a>
+                <a href="#gallery" class="hover:text-basement-neonRed transition-colors">Galleriet</a>
+                <a href="#guestbook" class="hover:text-basement-neonRed transition-colors">Minnesväggen</a>
+            </nav>
+
+            <!-- Right Controls (Theme Toggle & Mobile Menu Btn) -->
+            <div class="flex items-center gap-4">
+                <button id="themeToggle" class="p-2.5 rounded-full bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200 transition-all duration-300" aria-label="Toggle dark/light mode">
+                    <i id="themeIcon" class="fa-solid fa-moon text-lg"></i>
+                </button>
+
+                <button id="mobileMenuBtn" class="md:hidden p-2.5 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800 focus:outline-none">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobileMenu" class="hidden md:hidden border-b border-gray-200 dark:border-gray-800 bg-white dark:bg-basement-darkBg px-4 pt-2 pb-6 space-y-3">
+            <a href="#about" class="block py-2 text-base font-medium hover:text-basement-neonRed">Om Klubben</a>
+            <a href="#timeline" class="block py-2 text-base font-medium hover:text-basement-neonRed">Historia</a>
+            <a href="#gallery" class="block py-2 text-base font-medium hover:text-basement-neonRed">Galleriet</a>
+            <a href="#guestbook" class="block py-2 text-base font-medium hover:text-basement-neonRed">Minnesväggen</a>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        <!-- Hero Section -->
+        <section class="relative min-h-[85vh] flex items-center justify-center overflow-hidden py-20 bg-gradient-to-b from-transparent via-purple-950/10 to-transparent">
+            <!-- Background Glow FX -->
+            <div class="absolute -top-40 -left-40 w-96 h-96 bg-basement-neonRed/20 rounded-full filter blur-[120px] pointer-events-none"></div>
+            <div class="absolute -bottom-40 -right-40 w-96 h-96 bg-basement-neonPurple/20 rounded-full filter blur-[120px] pointer-events-none"></div>
+
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 text-center relative z-10">
+                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-basement-neonRed/30 bg-basement-neonRed/10 text-basement-neonRed text-xs font-mono mb-6 uppercase tracking-widest">
+                    <span class="w-2 h-2 rounded-full bg-basement-neonRed animate-pulse"></span>
+                    Legendarisk Klubb i Uppsala
+                </div>
+
+                <h1 class="text-5xl sm:text-7xl md:text-8xl font-black tracking-tight mb-6 uppercase">
+                    Ett rum för <br>
+                    <span class="neon-text-red text-basement-neonRed inline-block">Musik</span> & 
+                    <span class="neon-text-purple text-basement-neonPurple inline-block">Gemenskap</span>
+                </h1>
+
+                <p class="text-lg sm:text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-10 leading-relaxed font-light">
+                    Källaren där basen kändes i bröstet, ljuset var dovt och kvällarna aldrig tog slut. En hyllningssida till Uppsalas mest saknade underground-scen.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <a href="#guestbook" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-basement-neonRed to-basement-neonPurple text-white font-bold tracking-wide shadow-neon-red hover:opacity-90 transition-all transform hover:-translate-y-0.5">
+                        <i class="fa-solid fa-pen-nib mr-2"></i> Skriv ett minne
+                    </a>
+                    <a href="#gallery" class="w-full sm:w-auto px-8 py-4 rounded-xl border border-gray-300 dark:border-gray-700 hover:border-basement-neonPurple bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm text-gray-900 dark:text-white font-semibold transition-all">
+                        <i class="fa-solid fa-images mr-2"></i> Utforska Galleriet
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-20 border-t border-gray-200 dark:border-gray-800/60 bg-gray-50/50 dark:bg-black/30">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h2 class="text-xs font-mono font-bold tracking-widest text-basement-neonCyan uppercase mb-2">Historien om The Basement</h2>
+                        <h3 class="text-3xl sm:text-4xl font-extrabold mb-6 tracking-tight">Mer än bara en klubb</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
+                            Under sina verksamma år var <strong>The Basement</strong> en oas för livemusik, elektroniska beats, indiefester och subkulturer i Uppsala. Beläget en trappa ner från stadsbruset skapades ett unikt intimt rum där artister och besökare möttes på samma nivå.
+                        </p>
+                        <p class="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
+                            Oavsett om det var lokala band som gjorde sin första spelning, svettiga DJ-set långt in på småtimmar eller nischade klubbkvällar, lämnade lokalen ett outplånligt avtryck i stadens kulturliv.
+                        </p>
+                        
+                        <!-- Quick Stats -->
+                        <div class="grid grid-cols-3 gap-4 pt-4 border-t border-gray-200 dark:border-gray-800">
+                            <div>
+                                <div class="text-2xl font-black text-basement-neonRed font-mono">100+</div>
+                                <div class="text-xs text-gray-500 dark:text-gray-400">Liveakter</div>
+                            </div>
+                            <div>
+                                <div class="text-2xl font-black text-basement-neonPurple font-mono">1000-tals</div>
+                                <div class="text-xs text-gray-500 dark:text-gray-400">Minnen</div>
+                            </div>
+                            <div>
+                                <div class="text-2xl font-black text-basement-neonCyan font-mono">100%</div>
+                                <div class="text-xs text-gray-500 dark:text-gray-400">Kärlek</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="relative">
+                        <div class="relative rounded-2xl overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-700 bg-black group">
+                            <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1000&q=80" alt="Atmosphere concert light" class="w-full h-96 object-cover opacity-80 group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/800x600/111/fff?text=The+Basement'">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+                            <div class="absolute bottom-6 left-6 right-6">
+                                <span class="px-3 py-1 rounded-md bg-basement-neonRed/80 text-white font-mono text-xs uppercase tracking-wider">Källarstämning</span>
+                                <p class="text-white text-sm mt-2 font-medium">Svettiga väggar, fantastiskt ljud och community i fokus.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Timeline Section -->
+        <section id="timeline" class="py-20">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-xs font-mono font-bold tracking-widest text-basement-neonRed uppercase mb-2">Tidsresa</h2>
+                    <h3 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Milstolpar & Kvällar vi minns</h3>
+                </div>
+
+                <div class="relative border-l-2 border-gray-300 dark:border-gray-800 ml-4 md:ml-32 space-y-12">
+                    
+                    <!-- Event Item 1 -->
+                    <div class="relative pl-8 md:pl-10 group">
+                        <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-basement-neonRed ring-4 ring-white dark:ring-basement-darkBg"></div>
+                        <div class="md:absolute md:-left-36 md:top-1 font-mono text-sm text-basement-neonRed font-bold mb-1 md:mb-0">
+                            2015 – Starten
+                        </div>
+                        <div class="bg-white dark:bg-basement-cardBg/60 p-6 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm hover:border-basement-neonRed/50 transition-colors">
+                            <h4 class="text-xl font-bold mb-2">Portarna öppnas</h4>
+                            <p class="text-gray-600 dark:text-gray-300 text-sm">
+                                Lokalen renoveras av entusiaster och förvandlas från ett mörkt förråd till Uppsalas mest intima underground-scen.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Event Item 2 -->
+                    <div class="relative pl-8 md:pl-10 group">
+                        <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-basement-neonPurple ring-4 ring-white dark:ring-basement-darkBg"></div>
+                        <div class="md:absolute md:-left-36 md:top-1 font-mono text-sm text-basement-neonPurple font-bold mb-1 md:mb-0">
+                            2017 – Guldåren
+                        </div>
+                        <div class="bg-white dark:bg-basement-cardBg/60 p-6 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm hover:border-basement-neonPurple/50 transition-colors">
+                            <h4 class="text-xl font-bold mb-2">Livekonserter & Klubbkoncept</h4>
+                            <p class="text-gray-600 dark:text-gray-300 text-sm">
+                                Klubben bokar både internationella underground-DJ:s och lokala indieband. Ringlande köer längs gatan varje helg.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Event Item 3 -->
+                    <div class="relative pl-8 md:pl-10 group">
+                        <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-basement-neonCyan ring-4 ring-white dark:ring-basement-darkBg"></div>
+                        <div class="md:absolute md:-left-36 md:top-1 font-mono text-sm text-basement-neonCyan font-bold mb-1 md:mb-0">
+                            2019 – Sista Dansen
+                        </div>
+                        <div class="bg-white dark:bg-basement-cardBg/60 p-6 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm hover:border-basement-neonCyan/50 transition-colors">
+                            <h4 class="text-xl font-bold mb-2">Avslutningsfesten</h4>
+                            <p class="text-gray-600 dark:text-gray-300 text-sm">
+                                Efter flera år av ikoniska kvällar stänger lokalen. Sista helgen blev en legendarisk maratondans som varade ända in på morgontimmarna.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section id="gallery" class="py-20 border-t border-gray-200 dark:border-gray-800/60 bg-gray-50/50 dark:bg-black/20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+                    <div>
+                        <h2 class="text-xs font-mono font-bold tracking-widest text-basement-neonPurple uppercase mb-2">Fotogalleri</h2>
+                        <h3 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Glimtar från källaren</h3>
+                    </div>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm mt-2 md:mt-0">Klicka på en bild för att förstora</p>
+                </div>
+
+                <!-- Gallery Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="galleryContainer">
+                    <!-- Gallery items injected dynamically or hardcoded -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Tribute Wall / Guestbook Section -->
+        <section id="guestbook" class="py-20">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-xs font-mono font-bold tracking-widest text-basement-neonRed uppercase mb-2">Minnesväggen</h2>
+                    <h3 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-4">Dela ditt minne från The Basement</h3>
+                    <p class="text-gray-600 dark:text-gray-400 max-w-xl mx-auto text-sm">
+                        Var du där? Lämna en hälsning, berätta om en spelning du aldrig glömmer eller bara skicka lite kärlek.
+                    </p>
+                </div>
+
+                <!-- Memory Input Form -->
+                <div class="bg-white dark:bg-basement-cardBg rounded-2xl p-6 sm:p-8 border border-gray-200 dark:border-gray-800 shadow-xl mb-12">
+                    <form id="tributeForm" class="space-y-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label for="authorName" class="block text-xs font-mono font-semibold uppercase text-gray-500 dark:text-gray-400 mb-1">Ditt Namn / Nick</label>
+                                <input type="text" id="authorName" required placeholder="t.ex. Johan S." class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-basement-neonRed transition-all">
+                            </div>
+                            <div>
+                                <label for="favoriteYear" class="block text-xs font-mono font-semibold uppercase text-gray-500 dark:text-gray-400 mb-1">Vilket år var du där mest?</label>
+                                <input type="text" id="favoriteYear" placeholder="t.ex. 2016-2018" class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-basement-neonRed transition-all">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="tributeMessage" class="block text-xs font-mono font-semibold uppercase text-gray-500 dark:text-gray-400 mb-1">Ditt Minne / Hälsning</label>
+                            <textarea id="tributeMessage" required rows="3" placeholder="Berätta om en kväll du minns..." class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-basement-neonRed transition-all"></textarea>
+                        </div>
+
+                        <div class="flex justify-end">
+                            <button type="submit" class="px-6 py-3 rounded-lg bg-basement-neonRed hover:bg-rose-600 text-white font-bold text-sm tracking-wide shadow-neon-red transition-all flex items-center gap-2">
+                                <i class="fa-solid fa-paper-plane"></i> Publicera minne
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Messages Wall Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="wallGrid">
+                    <!-- Dynamically populated via JavaScript -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <button id="closeLightbox" class="absolute top-6 right-6 text-white text-3xl hover:text-basement-neonRed transition-colors">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <div class="max-w-4xl w-full text-center">
+            <img id="lightboxImg" src="" alt="" class="max-h-[80vh] mx-auto rounded-lg shadow-2xl object-contain">
+            <p id="lightboxCaption" class="text-white mt-4 font-mono text-sm text-gray-300"></p>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-basement-neonRed text-white px-5 py-3 rounded-xl shadow-lg font-medium flex items-center gap-3">
+        <i class="fa-solid fa-circle-check"></i>
+        <span id="toastMsg">Minnet har lagts till!</span>
+    </div>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-basement-darkBg py-10 transition-colors">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="font-mono text-xl font-bold tracking-widest text-basement-neonRed mb-2">THE BASEMENT</div>
+            <p class="text-xs text-gray-500 dark:text-gray-400 max-w-md mx-auto mb-6">
+                En inofficiell minnessida skapad för alla som dansade, spelade och umgicks i källaren i Uppsala.
+            </p>
+            <div class="text-xs text-gray-400 dark:text-gray-600">
+                &copy; <span id="year"></span> Uppsala Nightlife Memories • Forever Underground
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Set year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Dark / Light Mode Logic with LocalStorage
+        const themeToggleBtn = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        
+        function initTheme() {
+            const savedTheme = localStorage.getItem('basement_theme');
+            if (savedTheme === 'light') {
+                document.documentElement.classList.remove('dark');
+                themeIcon.className = 'fa-solid fa-sun text-lg text-amber-500';
+            } else {
+                document.documentElement.classList.add('dark');
+                themeIcon.className = 'fa-solid fa-moon text-lg text-indigo-300';
+            }
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            const isDark = document.documentElement.classList.toggle('dark');
+            if (isDark) {
+                localStorage.setItem('basement_theme', 'dark');
+                themeIcon.className = 'fa-solid fa-moon text-lg text-indigo-300';
+            } else {
+                localStorage.setItem('basement_theme', 'light');
+                themeIcon.className = 'fa-solid fa-sun text-lg text-amber-500';
+            }
+        });
+
+        initTheme();
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu on click link
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+        });
+
+        // Gallery Data
+        const galleryData = [
+            {
+                url: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&q=80',
+                title: 'Klubbkväll & Stroboskop',
+                desc: 'Ett knökfullt dansgolv en fredagskväll 2017.'
+            },
+            {
+                url: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=800&q=80',
+                title: 'DJ-Båset',
+                desc: 'Vinyl och tunga basgångar långt in på natten.'
+            },
+            {
+                url: 'https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=800&q=80',
+                title: 'Intim Livekonsert',
+                desc: 'Lokal indieakt på den låga scenen.'
+            },
+            {
+                url: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=800&q=80',
+                title: 'Rök & Belysning',
+                desc: 'Den karakteristiska källarstämningen.'
+            },
+            {
+                url: 'https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?auto=format&fit=crop&w=800&q=80',
+                title: 'Gemenskapen',
+                desc: 'Människor som möts över musiken.'
+            },
+            {
+                url: 'https://images.unsplash.com/photo-1524368535928-5b5e00ddc76b?auto=format&fit=crop&w=800&q=80',
+                title: 'Sista Kvällen',
+                desc: 'Avskedsfesten 2019 som ingen glömmer.'
+            }
+        ];
+
+        // Populate Gallery
+        const galleryContainer = document.getElementById('galleryContainer');
+        galleryData.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'group relative rounded-xl overflow-hidden cursor-pointer bg-gray-900 border border-gray-200 dark:border-gray-800 shadow-md hover:shadow-neon-purple transition-all duration-300';
+            card.innerHTML = `
+                <img src="${item.url}" alt="${item.title}" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500 opacity-80 group-hover:opacity-100" onerror="this.src='https://placehold.co/600x400/222/fff?text=The+Basement'">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
+                <div class="absolute bottom-0 left-0 right-0 p-5 transform translate-y-2 group-hover:translate-y-0 transition-transform">
+                    <h4 class="text-white font-bold text-lg mb-1">${item.title}</h4>
+                    <p class="text-gray-300 text-xs">${item.desc}</p>
+                </div>
+            `;
+            card.addEventListener('click', () => openLightbox(item.url, `${item.title} - ${item.desc}`));
+            galleryContainer.appendChild(card);
+        });
+
+        // Lightbox functionality
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightboxImg');
+        const lightboxCaption = document.getElementById('lightboxCaption');
+        const closeLightbox = document.getElementById('closeLightbox');
+
+        function openLightbox(url, caption) {
+            lightboxImg.src = url;
+            lightboxCaption.textContent = caption;
+            lightbox.classList.remove('hidden');
+        }
+
+        closeLightbox.addEventListener('click', () => lightbox.classList.add('hidden'));
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) lightbox.classList.add('hidden');
+        });
+
+        // Guestbook / Wall Memory Storage
+        const initialMemories = [
+            {
+                name: "Elin K.",
+                year: "2016-2018",
+                message: "Bästa stället i Uppsala! Många av mina bästa universitetsminnen skapades i den där källaren. Saknar verkligen stämningen!",
+                date: "2023-11-12"
+            },
+            {
+                name: "Marcus G.",
+                year: "2017",
+                message: "Glömmer aldrig när vi spelade med vårt band där en regnig novemberkväll. Lokalen var packad och svetten rann från taket. Äkta underground!",
+                date: "2024-01-05"
+            },
+            {
+                name: "Sanna & Alex",
+                year: "2019",
+                message: "Vi träffades på dansgolvet under er klubbkväll 2019. Idag är vi gifta! Tack för allt!",
+                date: "2024-03-22"
+            }
+        ];
+
+        function getMemories() {
+            const stored = localStorage.getItem('basement_memories');
+            if (stored) {
+                return JSON.parse(stored);
+            } else {
+                localStorage.setItem('basement_memories', JSON.stringify(initialMemories));
+                return initialMemories;
+            }
+        }
+
+        function renderMemories() {
+            const wallGrid = document.getElementById('wallGrid');
+            wallGrid.innerHTML = '';
+            const memories = getMemories();
+
+            memories.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'bg-white dark:bg-basement-cardBg p-6 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm flex flex-col justify-between hover:border-basement-neonRed/40 transition-colors';
+                card.innerHTML = `
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center gap-2">
+                                <div class="w-8 h-8 rounded-full bg-basement-neonRed/20 border border-basement-neonRed/40 text-basement-neonRed font-bold flex items-center justify-center text-xs">
+                                    ${item.name.charAt(0)}
+                                </div>
+                                <span class="font-bold text-sm">${item.name}</span>
+                            </div>
+                            <span class="text-xs font-mono text-basement-neonPurple font-semibold">${item.year || 'Besökare'}</span>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed italic">"${item.message}"</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-gray-100 dark:border-gray-800/80 flex justify-between items-center text-[11px] text-gray-400">
+                        <span><i class="fa-regular fa-clock mr-1"></i> ${item.date}</span>
+                        <span class="text-basement-neonRed"><i class="fa-solid fa-heart"></i></span>
+                    </div>
+                `;
+                wallGrid.appendChild(card);
+            });
+        }
+
+        // Handle Form Submit
+        const tributeForm = document.getElementById('tributeForm');
+        tributeForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('authorName').value.trim();
+            const year = document.getElementById('favoriteYear').value.trim();
+            const message = document.getElementById('tributeMessage').value.trim();
+
+            if (name && message) {
+                const memories = getMemories();
+                const newMemory = {
+                    name: name,
+                    year: year || 'Besökare',
+                    message: message,
+                    date: new Date().toISOString().split('T')[0]
+                };
+
+                memories.unshift(newMemory);
+                localStorage.setItem('basement_memories', JSON.stringify(memories));
+                renderMemories();
+
+                tributeForm.reset();
+                showToast("Ditt minne har publicerats på väggen!");
+            }
+        });
+
+        // Toast notification
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMsg').textContent = msg;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3500);
+        }
+
+        // Initialize wall
+        renderMemories();
+    </script>
 </body>
 </html>
