@@ -1,692 +1,411 @@
 <!DOCTYPE html>
-<html lang="sv" class="dark">
+<html lang="sv">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Basement Uppsala | Rockklubb & Livemusik</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        basement: {
-                            red: '#e53e3e',
-                            neonRed: '#ff2a5f',
-                            orange: '#dd6b20',
-                            gold: '#d69e2e',
-                            darkBg: '#0d0d11',
-                            darkCard: '#16161e',
-                            darkBorder: '#27273a',
-                            lightBg: '#f4f5f7',
-                            lightCard: '#ffffff',
-                            lightBorder: '#e2e8f0'
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace'],
-                        display: ['Oswald', 'sans-serif']
-                    },
-                    boxShadow: {
-                        'neon-red': '0 0 15px rgba(255, 42, 95, 0.4), 0 0 30px rgba(255, 42, 95, 0.15)',
-                        'neon-orange': '0 0 15px rgba(221, 107, 32, 0.4)'
-                    }
-                }
-            }
-        }
-    </script>
-    <!-- Font Awesome & Google Fonts -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=JetBrains+Mono:wght@400;700&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
-    <style>
-        html {
-            scroll-behavior: smooth;
-        }
-        .neon-glow-text {
-            text-shadow: 0 0 10px rgba(255, 42, 95, 0.7), 0 0 25px rgba(255, 42, 95, 0.4);
-        }
-        .brick-bg {
-            background-image: radial-gradient(rgba(255, 42, 95, 0.05) 1px, transparent 0);
-            background-size: 24px 24px;
-        }
-        /* Custom scrollbars */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0d0d11;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #27273a;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #ff2a5f;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Basement | Techno & Psy Trance Club Uppsala</title>
+  <style>
+    :root {
+      --bg-color: #0a0a10;
+      --text-color: #e2e8f0;
+      --card-bg: #12131c;
+      --accent-color: #00ffcc;
+      --accent-secondary: #ff007f;
+      --border-color: #2a2d3d;
+      --subtext-color: #a0aec0;
+    }
+
+    [data-theme="light"] {
+      --bg-color: #f4f6f9;
+      --text-color: #1a202c;
+      --card-bg: #ffffff;
+      --accent-color: #00aa88;
+      --accent-secondary: #d6006e;
+      --border-color: #e2e8f0;
+      --subtext-color: #4a5568;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    header {
+      background-color: var(--card-bg);
+      border-bottom: 2px solid var(--accent-color);
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+      color: var(--accent-color);
+      text-transform: uppercase;
+      text-shadow: 0 0 10px rgba(0, 255, 204, 0.4);
+    }
+
+    .logo span {
+      color: var(--accent-secondary);
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 1.5rem;
+    }
+
+    nav a {
+      color: var(--text-color);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+
+    nav a:hover {
+      color: var(--accent-color);
+    }
+
+    .theme-toggle {
+      background: transparent;
+      border: 1px solid var(--accent-color);
+      color: var(--text-color);
+      padding: 0.4rem 0.8rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s;
+    }
+
+    .theme-toggle:hover {
+      background-color: var(--accent-color);
+      color: #000;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 4rem 1rem;
+      background: linear-gradient(180deg, rgba(18, 19, 28, 0.8) 0%, var(--bg-color) 100%);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      text-shadow: 0 0 20px var(--accent-secondary);
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: var(--subtext-color);
+      max-width: 600px;
+      margin: 0 auto 1.5rem;
+    }
+
+    .genre-tags {
+      display: flex;
+      justify-content: center;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      background-color: rgba(255, 0, 127, 0.2);
+      border: 1px solid var(--accent-secondary);
+      color: var(--text-color);
+      padding: 0.3rem 0.8rem;
+      border-radius: 15px;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    section {
+      margin-bottom: 3rem;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      color: var(--accent-color);
+      margin-bottom: 1rem;
+      border-left: 4px solid var(--accent-secondary);
+      padding-left: 0.5rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1.5rem;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      border-color: var(--accent-color);
+    }
+
+    .card h3 {
+      margin-bottom: 0.5rem;
+      color: var(--accent-secondary);
+    }
+
+    .card .date {
+      font-size: 0.85rem;
+      color: var(--subtext-color);
+      margin-bottom: 0.8rem;
+      display: block;
+    }
+
+    .guestbook-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      background-color: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      margin-bottom: 1.5rem;
+    }
+
+    .guestbook-form input,
+    .guestbook-form textarea {
+      background-color: var(--bg-color);
+      border: 1px solid var(--border-color);
+      color: var(--text-color);
+      padding: 0.8rem;
+      border-radius: 4px;
+    }
+
+    .guestbook-form button {
+      background-color: var(--accent-color);
+      color: #000;
+      border: none;
+      padding: 0.8rem;
+      font-weight: bold;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .guestbook-form button:hover {
+      opacity: 0.9;
+    }
+
+    .entries {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .entry-card {
+      background-color: var(--card-bg);
+      padding: 1rem;
+      border-left: 3px solid var(--accent-color);
+      border-radius: 4px;
+    }
+
+    .entry-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.4rem;
+      font-weight: bold;
+    }
+
+    .entry-date {
+      font-size: 0.8rem;
+      color: var(--subtext-color);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      border-top: 1px solid var(--border-color);
+      color: var(--subtext-color);
+      font-size: 0.9rem;
+    }
+  </style>
 </head>
-<body class="bg-basement-lightBg dark:bg-basement-darkBg text-gray-800 dark:text-gray-100 font-sans transition-colors duration-300 min-h-screen flex flex-col selection:bg-basement-neonRed selection:text-white brick-bg">
+<body>
 
-    <!-- HEADER / NAVIGATION -->
-    <header class="sticky top-0 z-50 backdrop-blur-md bg-white/90 dark:bg-basement-darkBg/90 border-b border-basement-lightBorder dark:border-basement-darkBorder transition-colors">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            
-            <!-- Logo -->
-            <a href="#home" class="flex items-center gap-3 group">
-                <div class="w-11 h-11 rounded-lg bg-black border border-basement-neonRed flex items-center justify-center shadow-neon-red group-hover:scale-105 transition-transform">
-                    <span class="font-display font-bold text-basement-neonRed text-2xl tracking-tighter">B</span>
-                </div>
-                <div>
-                    <span class="font-display text-2xl font-bold tracking-wider uppercase text-gray-900 dark:text-white group-hover:text-basement-neonRed transition-colors">
-                        THE BASEMENT
-                    </span>
-                    <span class="block text-[10px] tracking-widest text-basement-orange font-mono uppercase font-semibold">Uppsala</span>
-                </div>
-            </a>
+  <header>
+    <div class="logo">The <span>Basement</span></div>
+    <nav>
+      <ul>
+        <li><a href="#about">Om Klubben</a></li>
+        <li><a href="#events">Klassiska Kvällar</a></li>
+        <li><a href="#guestbook">Minnesvägg</a></li>
+      </ul>
+    </nav>
+    <button class="theme-toggle" id="themeBtn">Ljust Tema</button>
+  </header>
 
-            <!-- Desktop Nav Menu -->
-            <nav class="hidden lg:flex items-center space-x-6 text-sm font-semibold tracking-wide uppercase font-mono">
-                <a href="#home" class="hover:text-basement-neonRed transition-colors py-2 border-b-2 border-transparent hover:border-basement-neonRed">Start</a>
-                <a href="#shows" class="hover:text-basement-neonRed transition-colors py-2 border-b-2 border-transparent hover:border-basement-neonRed">Spelschema</a>
-                <a href="#booking" class="hover:text-basement-neonRed transition-colors py-2 border-b-2 border-transparent hover:border-basement-neonRed">Boka Spelning</a>
-                <a href="#about" class="hover:text-basement-neonRed transition-colors py-2 border-b-2 border-transparent hover:border-basement-neonRed">Om Oss</a>
-                <a href="#guestbook" class="hover:text-basement-neonRed transition-colors py-2 border-b-2 border-transparent hover:border-basement-neonRed">Minnesvägg</a>
-                <a href="#contact" class="hover:text-basement-neonRed transition-colors py-2 border-b-2 border-transparent hover:border-basement-neonRed">Kontakt</a>
-            </nav>
+  <main>
+    <section class="hero">
+      <h1>THE BASEMENT UPPSALA</h1>
+      <p>Undergroundklubben för tung Techno, Psytrance och elektroniska rytmer.</p>
+      <div class="genre-tags">
+        <span class="tag">Techno</span>
+        <span class="tag">Psytrance</span>
+        <span class="tag">Progressive</span>
+        <span class="tag">Underground</span>
+      </div>
+    </section>
 
-            <!-- Controls (Theme Toggle & Mobile Menu) -->
-            <div class="flex items-center gap-3">
-                <button id="themeToggleBtn" aria-label="Toggle dark/light mode" class="p-2.5 rounded-lg border border-gray-300 dark:border-basement-darkBorder bg-gray-100 dark:bg-basement-darkCard hover:border-basement-neonRed transition-all">
-                    <i id="themeIcon" class="fa-solid fa-moon text-lg text-amber-500 dark:text-basement-neonRed"></i>
-                </button>
-
-                <button id="mobileMenuBtn" aria-label="Toggle mobile menu" class="lg:hidden p-2.5 rounded-lg border border-gray-300 dark:border-basement-darkBorder bg-gray-100 dark:bg-basement-darkCard text-gray-800 dark:text-gray-200">
-                    <i class="fa-solid fa-bars text-xl"></i>
-                </button>
-            </div>
+    <div class="container">
+      <section id="about">
+        <h2>Om The Basement</h2>
+        <div class="card">
+          <p>
+            The Basement var Uppsalas främsta samlingsplats för elektronisk undergroundmusik.
+            Med basfyllda ljudsystem, hypnotiska ljusshower och en dedikerad publik levererade klubben
+            oförglömliga kvällar täckta av tung techno och snabb psytrance i källarmörkret.
+          </p>
         </div>
+      </section>
 
-        <!-- Mobile Nav Menu -->
-        <div id="mobileMenu" class="hidden lg:hidden border-b border-gray-200 dark:border-basement-darkBorder bg-white dark:bg-basement-darkBg px-6 pt-3 pb-6 space-y-3 font-mono text-sm uppercase">
-            <a href="#home" class="block py-2 hover:text-basement-neonRed">Start</a>
-            <a href="#shows" class="block py-2 hover:text-basement-neonRed">Spelschema</a>
-            <a href="#booking" class="block py-2 hover:text-basement-neonRed">Boka Spelning</a>
-            <a href="#about" class="block py-2 hover:text-basement-neonRed">Om Oss</a>
-            <a href="#guestbook" class="block py-2 hover:text-basement-neonRed">Minnesvägg</a>
-            <a href="#contact" class="block py-2 hover:text-basement-neonRed">Kontakt</a>
+      <section id="events">
+        <h2>Arkiv: Klassiska Klubbkoncept</h2>
+        <div class="grid">
+          <div class="card">
+            <h3>Psychedelic Basement</h3>
+            <span class="date">Fredag / Psytrance & Full-On</span>
+            <p>Fullständigt dekorerad källarlokal med UV-ljus, snabba beats och internationella samt lokala Psytrance-DJs.</p>
+          </div>
+          <div class="card">
+            <h3>Darkroom Techno</h3>
+            <span class="date">Lördag / Peak-time & Industrial Techno</span>
+            <p>Minimalistisk ljussättning, tung bas och fokuserad energi från öppning till stängning.</p>
+          </div>
+          <div class="card">
+            <h3>Progression</h3>
+            <span class="date">Special / Progressive Trance & House</span>
+            <p>Melodiska resor och djupa rytmer för den som ville ha en mer stämningsfull klubbupplevelse.</p>
+          </div>
         </div>
-    </header>
+      </section>
 
-    <main class="flex-grow">
+      <section id="guestbook">
+        <h2>Minnesvägg / Gästbok</h2>
+        <form class="guestbook-form" id="gbForm">
+          <input type="text" id="authorInput" placeholder="Ditt namn eller DJ-alias" required />
+          <textarea id="messageInput" rows="4" placeholder="Dela ditt bästa minne från The Basement..." required></textarea>
+          <button type="submit">Skicka Minne</button>
+        </form>
 
-        <!-- HERO SECTION / WELCOME -->
-        <section id="home" class="relative py-20 lg:py-32 overflow-hidden border-b border-gray-200 dark:border-basement-darkBorder">
-            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div class="text-center max-w-3xl mx-auto">
-                    
-                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-basement-neonRed/40 bg-basement-neonRed/10 text-basement-neonRed text-xs font-mono mb-6 uppercase tracking-widest font-bold">
-                        <i class="fa-solid fa-compact-disc animate-spin"></i> Livemusic & Rock Club • Uppsala
-                    </div>
-
-                    <h1 class="font-display text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tight uppercase mb-6 leading-tight">
-                        Welcome to <br>
-                        <span class="text-basement-neonRed neon-glow-text">The Basement</span>
-                    </h1>
-
-                    <p class="text-lg sm:text-xl text-gray-600 dark:text-gray-300 mb-8 font-light leading-relaxed">
-                        Uppsalas genuina underground-scen för rock, punk, metal och indie. Beläget i källaren på Svartbäcksgatan 19 – där musiken spelas högt och stämningen alltid är äkta.
-                    </p>
-
-                    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                        <a href="#shows" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-basement-neonRed hover:bg-red-600 text-white font-bold font-mono tracking-wider uppercase shadow-neon-red transition-all transform hover:-translate-y-0.5">
-                            <i class="fa-solid fa-ticket mr-2"></i> Aktuellt Spelschema
-                        </a>
-                        <a href="#booking" class="w-full sm:w-auto px-8 py-4 rounded-xl border border-gray-300 dark:border-basement-darkBorder hover:border-basement-neonRed bg-white/60 dark:bg-basement-darkCard/60 font-semibold font-mono tracking-wider uppercase transition-all">
-                            <i class="fa-solid fa-guitar mr-2"></i> Spela hos oss
-                        </a>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-        <!-- SPELSCHEMA / CONCERTS -->
-        <section id="shows" class="py-20 border-b border-gray-200 dark:border-basement-darkBorder">
-            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-                
-                <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
-                    <div>
-                        <h2 class="text-xs font-mono font-bold tracking-widest text-basement-orange uppercase mb-2">Program & Konserter</h2>
-                        <h3 class="font-display text-4xl font-bold uppercase tracking-tight">Kommande & Tidigare Spelningar</h3>
-                    </div>
-                    
-                    <!-- Filter Buttons -->
-                    <div class="flex gap-2 mt-4 md:mt-0 font-mono text-xs">
-                        <button id="filterAll" class="show-filter-btn active px-4 py-2 rounded-lg border border-basement-neonRed bg-basement-neonRed text-white font-bold uppercase transition-all">Alla</button>
-                        <button id="filterUpcoming" class="show-filter-btn px-4 py-2 rounded-lg border border-gray-300 dark:border-basement-darkBorder hover:border-basement-neonRed font-bold uppercase transition-all">Kommande</button>
-                        <button id="filterPast" class="show-filter-btn px-4 py-2 rounded-lg border border-gray-300 dark:border-basement-darkBorder hover:border-basement-neonRed font-bold uppercase transition-all">Arkiv</button>
-                    </div>
-                </div>
-
-                <!-- Shows List Grid -->
-                <div id="showsList" class="space-y-4">
-                    <!-- Shows will be populated dynamically -->
-                </div>
-
-            </div>
-        </section>
-
-        <!-- BOKA SPELNING / BAND-INFO -->
-        <section id="booking" class="py-20 border-b border-gray-200 dark:border-basement-darkBorder bg-gray-50/50 dark:bg-black/20">
-            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-                
-                <div class="text-center max-w-3xl mx-auto mb-16">
-                    <h2 class="text-xs font-mono font-bold tracking-widest text-basement-neonRed uppercase mb-2">För Musiker & Band</h2>
-                    <h3 class="font-display text-4xl font-bold uppercase tracking-tight mb-4">Vill ert band spela på The Basement?</h3>
-                    <p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
-                        Vi brinner för livemusik och bokar allt från lokala uppsala-akter till turnerande band. Läs igenom vår info och tekniska specifikationer nedan innan ni skickar bokningsförfrågan.
-                    </p>
-                </div>
-
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
-                    
-                    <!-- Demo Rules -->
-                    <div class="bg-white dark:bg-basement-darkCard p-6 rounded-2xl border border-gray-200 dark:border-basement-darkBorder shadow-sm">
-                        <div class="w-10 h-10 rounded-lg bg-basement-neonRed/10 text-basement-neonRed flex items-center justify-center font-bold mb-4 text-xl">
-                            <i class="fa-solid fa-compact-disc"></i>
-                        </div>
-                        <h4 class="font-display text-xl font-bold uppercase mb-3">Demobokning</h4>
-                        <ul class="text-xs text-gray-600 dark:text-gray-300 space-y-2 list-disc list-inside leading-relaxed">
-                            <li>Skicka länk till Soundcloud, Spotify eller Bandcamp (inga tunga MP3-filer via e-post).</li>
-                            <li>Bifoga en kort biografi och länkar till sociala medier.</li>
-                            <li>Svarstid kan variera beroende på högt tryck i spelprogrammet.</li>
-                        </ul>
-                    </div>
-
-                    <!-- Tech Specs & Rider -->
-                    <div class="bg-white dark:bg-basement-darkCard p-6 rounded-2xl border border-gray-200 dark:border-basement-darkBorder shadow-sm">
-                        <div class="w-10 h-10 rounded-lg bg-basement-orange/10 text-basement-orange flex items-center justify-center font-bold mb-4 text-xl">
-                            <i class="fa-solid fa-sliders"></i>
-                        </div>
-                        <h4 class="font-display text-xl font-bold uppercase mb-3">Scen & Backline Rider</h4>
-                        <ul class="text-xs text-gray-600 dark:text-gray-300 space-y-2 font-mono">
-                            <li><strong class="text-gray-800 dark:text-gray-100">Scenstorlek:</strong> ca 4x3 meter (intimat källarformat)</li>
-                            <li><strong class="text-gray-800 dark:text-gray-100">PA System:</strong> 2x Sub, 2x Toppar, 16-kanalers digital mixer</li>
-                            <li><strong class="text-gray-800 dark:text-gray-100">Trummor:</strong> Shellkit finns på plats (ta med egna cymbaler & virvel)</li>
-                            <li><strong class="text-gray-800 dark:text-gray-100">Förstärkare:</strong> Bass cabinet 4x10 & 2x Gitarrcabinets</li>
-                        </ul>
-                    </div>
-
-                    <!-- Conditions -->
-                    <div class="bg-white dark:bg-basement-darkCard p-6 rounded-2xl border border-gray-200 dark:border-basement-darkBorder shadow-sm">
-                        <div class="w-10 h-10 rounded-lg bg-basement-gold/10 text-basement-gold flex items-center justify-center font-bold mb-4 text-xl">
-                            <i class="fa-solid fa-handshake"></i>
-                        </div>
-                        <h4 class="font-display text-xl font-bold uppercase mb-3">Villkor & Tider</h4>
-                        <ul class="text-xs text-gray-600 dark:text-gray-300 space-y-2 list-disc list-inside leading-relaxed">
-                            <li>Soundcheck sker vanligtvis mellan 17:00 - 19:00.</li>
-                            <li>Mat och dryck ingår för spelande band.</li>
-                            <li>Åldersgräns 18 år gäller för alla arrangemang.</li>
-                        </ul>
-                    </div>
-
-                </div>
-
-                <!-- Booking Contact Box -->
-                <div class="bg-gradient-to-r from-basement-darkCard to-black text-white p-8 rounded-2xl border border-basement-darkBorder text-center">
-                    <h4 class="font-display text-2xl font-bold uppercase mb-2">Redo att boka?</h4>
-                    <p class="text-sm text-gray-400 mb-6 max-w-xl mx-auto">Skicka er bokningsförfrågan direkt till vår bokningsansvarige via e-post.</p>
-                    <a href="mailto:booking@thebasement.se" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-basement-neonRed text-white font-mono font-bold text-sm uppercase tracking-wider shadow-neon-red hover:bg-red-600 transition-all">
-                        <i class="fa-solid fa-envelope"></i> booking@thebasement.se
-                    </a>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- OM THE BASEMENT / HISTORIA -->
-        <section id="about" class="py-20 border-b border-gray-200 dark:border-basement-darkBorder">
-            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-                
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                    
-                    <div>
-                        <h2 class="text-xs font-mono font-bold tracking-widest text-basement-orange uppercase mb-2">Historien om Klubben</h2>
-                        <h3 class="font-display text-4xl font-bold uppercase tracking-tight mb-6">Svartbäcksgatan 19 – Källaren som levde</h3>
-                        
-                        <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm leading-relaxed">
-                            <strong>The Basement</strong> var i många år ett nav för den oberoende musikscenen i Uppsala. Beläget i korsningen Svartbäcksgatan 19 och S:t Olofsgatan erbjöd klubben en intim miljö där avståndet mellan scen och publik i princip var obefintligt.
-                        </p>
-                        <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm leading-relaxed">
-                            Hit kom besökare för att uppleva rå livemusik, svettiga rockklubbkvällar, punkspelningar och tunga DJ-set. För många uppsalabor och studenter blev källaren ett andra hem under helgerna.
-                        </p>
-                        <p class="text-gray-600 dark:text-gray-300 mb-6 text-sm leading-relaxed">
-                            Även om åren gått lever minnet av de legendariska kvällarna, doften av scenrök och den unika gemenskapen kvar hos alla som någonsin gick nerför trappan.
-                        </p>
-
-                        <div class="grid grid-cols-2 gap-4 border-t border-gray-200 dark:border-basement-darkBorder pt-6 font-mono text-xs">
-                            <div>
-                                <span class="block font-bold text-basement-neonRed uppercase">Plats</span>
-                                <span class="text-gray-500 dark:text-gray-400">Svartbäcksgatan 19 / S:t Olofsgatan</span>
-                            </div>
-                            <div>
-                                <span class="block font-bold text-basement-neonRed uppercase">Åldersgräns</span>
-                                <span class="text-gray-500 dark:text-gray-400">18 år (Leg)</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Visual Card / Badge -->
-                    <div class="relative">
-                        <div class="bg-basement-darkCard p-8 rounded-2xl border border-basement-darkBorder shadow-2xl relative overflow-hidden text-white">
-                            <div class="absolute -right-10 -bottom-10 text-9xl font-display font-bold text-gray-800/20 select-none">19</div>
-                            
-                            <div class="relative z-10 space-y-6">
-                                <div class="inline-block px-3 py-1 rounded bg-basement-neonRed text-white font-mono text-xs font-bold uppercase">
-                                    Underground Classic
-                                </div>
-                                <h4 class="font-display text-3xl font-bold uppercase tracking-wide">"Sveriges mest intime rockscen"</h4>
-                                <blockquote class="text-gray-300 text-sm italic leading-relaxed">
-                                    "Man kände basen vibrera i betonggolvet långt innan man nådde längst ner i trappan. Det fanns inget ställe som The Basement."
-                                </blockquote>
-                                <div class="pt-4 border-t border-gray-800 flex items-center justify-between text-xs font-mono text-gray-400">
-                                    <span>Uppsala Culture Archive</span>
-                                    <span class="text-basement-orange"><i class="fa-solid fa-heart"></i> Forever Rock</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-        </section>
-
-        <!-- MINNESVÄGG / GÄSTBOK -->
-        <section id="guestbook" class="py-20 border-b border-gray-200 dark:border-basement-darkBorder bg-gray-50/50 dark:bg-black/20">
-            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-                
-                <div class="text-center max-w-2xl mx-auto mb-12">
-                    <h2 class="text-xs font-mono font-bold tracking-widest text-basement-neonRed uppercase mb-2">Gästbok & Minnesvägg</h2>
-                    <h3 class="font-display text-4xl font-bold uppercase tracking-tight mb-3">Dela ditt minne från källaren</h3>
-                    <p class="text-gray-600 dark:text-gray-400 text-sm">
-                        Var du där? Lämna en kommentar, berätta om en osannolik spelning eller skicka en hälsning.
-                    </p>
-                </div>
-
-                <!-- Guestbook Form -->
-                <div class="bg-white dark:bg-basement-darkCard p-6 sm:p-8 rounded-2xl border border-gray-200 dark:border-basement-darkBorder shadow-lg mb-12">
-                    <form id="guestbookForm" class="space-y-4">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div>
-                                <label for="gbName" class="block text-xs font-mono font-semibold uppercase text-gray-500 dark:text-gray-400 mb-1">Namn / Nick *</label>
-                                <input type="text" id="gbName" required placeholder="t.ex. Johan H." class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-basement-darkBorder bg-gray-50 dark:bg-basement-darkBg focus:outline-none focus:ring-2 focus:ring-basement-neonRed text-sm transition-all">
-                            </div>
-                            <div>
-                                <label for="gbYear" class="block text-xs font-mono font-semibold uppercase text-gray-500 dark:text-gray-400 mb-1">Favoritår / Band</label>
-                                <input type="text" id="gbYear" placeholder="t.ex. 2017 / Mustasch" class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-basement-darkBorder bg-gray-50 dark:bg-basement-darkBg focus:outline-none focus:ring-2 focus:ring-basement-neonRed text-sm transition-all">
-                            </div>
-                        </div>
-
-                        <div>
-                            <label for="gbMessage" class="block text-xs font-mono font-semibold uppercase text-gray-500 dark:text-gray-400 mb-1">Ditt Minne / Hälsning *</label>
-                            <textarea id="gbMessage" required rows="3" placeholder="Skriv din hälsning här..." class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-basement-darkBorder bg-gray-50 dark:bg-basement-darkBg focus:outline-none focus:ring-2 focus:ring-basement-neonRed text-sm transition-all"></textarea>
-                        </div>
-
-                        <div class="flex justify-end">
-                            <button type="submit" class="px-6 py-3 rounded-xl bg-basement-neonRed hover:bg-red-600 text-white font-mono font-bold text-xs uppercase tracking-wider shadow-neon-red transition-all flex items-center gap-2">
-                                <i class="fa-solid fa-paper-plane"></i> Publicera Inlägg
-                            </button>
-                        </div>
-                    </form>
-                </div>
-
-                <!-- Guestbook Messages List -->
-                <div id="guestbookEntries" class="space-y-4">
-                    <!-- Dynamic entries rendered via JS -->
-                </div>
-
-            </div>
-        </section>
-
-        <!-- HITTA HIT & KONTAKT -->
-        <section id="contact" class="py-20">
-            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-                
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                    
-                    <!-- Contact Info -->
-                    <div>
-                        <h2 class="text-xs font-mono font-bold tracking-widest text-basement-orange uppercase mb-2">Hitta Hit & Kontakt</h2>
-                        <h3 class="font-display text-4xl font-bold uppercase tracking-tight mb-6">Besök The Basement</h3>
-
-                        <div class="space-y-6 font-mono text-sm">
-                            <div class="flex items-start gap-4 p-4 rounded-xl border border-gray-200 dark:border-basement-darkBorder bg-white dark:bg-basement-darkCard">
-                                <div class="w-10 h-10 rounded-lg bg-basement-neonRed/10 text-basement-neonRed flex items-center justify-center font-bold text-lg shrink-0">
-                                    <i class="fa-solid fa-location-dot"></i>
-                                </div>
-                                <div>
-                                    <strong class="block text-gray-900 dark:text-white uppercase mb-1">Adress</strong>
-                                    <p class="text-xs text-gray-500 dark:text-gray-400">Svartbäcksgatan 19 (Hörnokalen v. S:t Olofsgatan)<br>753 20 Uppsala, Sverige</p>
-                                </div>
-                            </div>
-
-                            <div class="flex items-start gap-4 p-4 rounded-xl border border-gray-200 dark:border-basement-darkBorder bg-white dark:bg-basement-darkCard">
-                                <div class="w-10 h-10 rounded-lg bg-basement-orange/10 text-basement-orange flex items-center justify-center font-bold text-lg shrink-0">
-                                    <i class="fa-solid fa-clock"></i>
-                                </div>
-                                <div>
-                                    <strong class="block text-gray-900 dark:text-white uppercase mb-1">Öppettider (Spelkvällar)</strong>
-                                    <p class="text-xs text-gray-500 dark:text-gray-400">Fredag – Lördag: 20:00 – 02:00<br>Spelstart liveband: ca 21:30</p>
-                                </div>
-                            </div>
-
-                            <div class="flex items-start gap-4 p-4 rounded-xl border border-gray-200 dark:border-basement-darkBorder bg-white dark:bg-basement-darkCard">
-                                <div class="w-10 h-10 rounded-lg bg-basement-gold/10 text-basement-gold flex items-center justify-center font-bold text-lg shrink-0">
-                                    <i class="fa-solid fa-envelope"></i>
-                                </div>
-                                <div>
-                                    <strong class="block text-gray-900 dark:text-white uppercase mb-1">Kontakt & E-post</strong>
-                                    <p class="text-xs text-gray-500 dark:text-gray-400">Bokning: booking@thebasement.se<br>Info & Frågor: info@thebasement.se</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Interactive Map Representation -->
-                    <div class="bg-basement-darkCard rounded-2xl border border-basement-darkBorder p-6 flex flex-col justify-between relative overflow-hidden min-h-[320px]">
-                        <div class="relative z-10">
-                            <span class="px-3 py-1 rounded bg-basement-neonRed text-white font-mono text-xs font-bold uppercase">Karta / Uppsala City</span>
-                            <h4 class="font-display text-2xl font-bold uppercase text-white mt-4 mb-2">Centralt i Uppsala</h4>
-                            <p class="text-gray-400 text-xs">Endast 5 minuters promenad från Uppsala Centralstation. Ingången sker via trappan ned till källaren.</p>
-                        </div>
-
-                        <!-- Stylized Map Graphic -->
-                        <div class="my-6 py-8 px-4 rounded-xl bg-black/60 border border-gray-800 text-center font-mono text-xs relative">
-                            <div class="text-gray-500 mb-2">--- S:t Olofsgatan ---</div>
-                            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-basement-neonRed text-white font-bold shadow-neon-red animate-bounce">
-                                <i class="fa-solid fa-location-crosshairs"></i> THE BASEMENT (Svartbäcksgatan 19)
-                            </div>
-                            <div class="text-gray-500 mt-2">--- Svartbäcksgatan (Gågatan) ---</div>
-                        </div>
-
-                        <div class="text-xs font-mono text-gray-500 text-center">
-                            Åldersgräns 18 år • Legitimation krävs alltid i dörren
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-        </section>
-
-    </main>
-
-    <!-- FOOTER -->
-    <footer class="border-t border-gray-200 dark:border-basement-darkBorder bg-white dark:bg-basement-darkBg py-10 transition-colors">
-        <div class="max-w-7xl mx-auto px-4 text-center font-mono">
-            <div class="font-display text-2xl font-bold tracking-wider text-basement-neonRed uppercase mb-2">THE BASEMENT UPPSALA</div>
-            <p class="text-xs text-gray-500 dark:text-gray-400 max-w-md mx-auto mb-6">
-                Svartbäcksgatan 19 • Klassiskt spelställe och rockklubb.
-            </p>
-            <div class="text-[11px] text-gray-400 dark:text-gray-600">
-                &copy; <span id="currentYear"></span> The Basement Archive • Bevarad för uppsalas musikhistoria
-            </div>
-        </div>
-    </footer>
-
-    <!-- TOAST NOTIFICATION -->
-    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-basement-neonRed text-white px-5 py-3 rounded-xl shadow-lg font-mono text-xs font-bold uppercase flex items-center gap-3">
-        <i class="fa-solid fa-circle-check text-base"></i>
-        <span id="toastMsg">Inlägget sparades!</span>
+        <div class="entries" id="entriesList"></div>
+      </section>
     </div>
+  </main>
 
-    <!-- JAVASCRIPT LOGIC -->
-    <script>
-        // Set dynamic current year in footer
-        document.getElementById('currentYear').textContent = new Date().getFullYear();
+  <footer>
+    <p>&copy; The Basement Uppsala – En hyllning till Uppsalas elektroniska undergroundscen.</p>
+  </footer>
 
-        /* ==========================================================================
-           1. DARK / LIGHT THEME TOGGLE (localStorage key: 'theme')
-           ========================================================================== */
-        const themeToggleBtn = document.getElementById('themeToggleBtn');
-        const themeIcon = document.getElementById('themeIcon');
+  <script>
+    // Tema-hantering med sparad state
+    const themeBtn = document.getElementById('themeBtn');
+    const savedTheme = localStorage.getItem('basement_theme') || 'dark';
 
-        function applyTheme(theme) {
-            if (theme === 'light') {
-                document.documentElement.classList.remove('dark');
-                themeIcon.className = 'fa-solid fa-sun text-lg text-amber-500';
-            } else {
-                document.documentElement.classList.add('dark');
-                themeIcon.className = 'fa-solid fa-moon text-lg text-basement-neonRed';
-            }
-        }
+    function applyTheme(theme) {
+      if (theme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+        themeBtn.textContent = 'Mörkt Tema';
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+        themeBtn.textContent = 'Ljust Tema';
+      }
+      localStorage.setItem('basement_theme', theme);
+    }
 
-        function initTheme() {
-            // Default to 'dark' as requested
-            const savedTheme = localStorage.getItem('theme') || 'dark';
-            applyTheme(savedTheme);
-        }
+    applyTheme(savedTheme);
 
-        themeToggleBtn.addEventListener('click', () => {
-            const isDark = document.documentElement.classList.contains('dark');
-            const newTheme = isDark ? 'light' : 'dark';
-            localStorage.setItem('theme', newTheme);
-            applyTheme(newTheme);
-        });
+    themeBtn.addEventListener('click', () => {
+      const currentTheme = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+      applyTheme(currentTheme === 'light' ? 'dark' : 'light');
+    });
 
-        initTheme();
+    // Minnesvägg (Gästbok) med localStorage
+    const gbForm = document.getElementById('gbForm');
+    const entriesList = document.getElementById('entriesList');
 
-        /* ==========================================================================
-           2. MOBILE MENU TOGGLE
-           ========================================================================== */
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const mobileMenu = document.getElementById('mobileMenu');
+    const defaultEntries = [
+      { name: "DJ PsyFly", date: "2018-04-12", msg: "Känslan när basen slog om till full-on klockan 02:00 var helt oslagbar!" },
+      { name: "Techno-Erik", date: "2017-11-05", msg: "Uppsalas överlägset bästa undergroundställe. Saknar Darkroom-kvällarna sjukt mycket." }
+    ];
 
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
+    function loadEntries() {
+      const stored = localStorage.getItem('basement_entries');
+      return stored ? JSON.parse(stored) : defaultEntries;
+    }
 
-        mobileMenu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
-        });
+    function renderEntries() {
+      const entries = loadEntries();
+      entriesList.innerHTML = entries.map(entry => `
+        <div class="entry-card">
+          <div class="entry-header">
+            <span>${escapeHtml(entry.name)}</span>
+            <span class="entry-date">${entry.date}</span>
+          </div>
+          <p>${escapeHtml(entry.msg)}</p>
+        </div>
+      `).join('');
+    }
 
-        /* ==========================================================================
-           3. SPELSCHEMA / SHOWS DATA & FILTERING
-           ========================================================================== */
-        const showsData = [
-            {
-                date: '2024-11-15',
-                displayDate: '15 NOV 2024',
-                band: 'Bombus + Support',
-                genre: 'Heavy Rock / Metal',
-                price: '150 kr',
-                status: 'upcoming',
-                desc: 'Tung rock direkt från Göteborg intar källarscenen för en svettig helgkväll.'
-            },
-            {
-                date: '2024-12-02',
-                displayDate: '02 DEC 2024',
-                band: 'Uppsala Punk Fest: Abhinanda & Vänner',
-                genre: 'Hardcore / Punk',
-                price: '180 kr',
-                status: 'upcoming',
-                desc: 'Helkväll med lokal hardcore och punk. 4 band på scenen!'
-            },
-            {
-                date: '2018-05-18',
-                displayDate: '18 MAJ 2018',
-                band: 'Truckfighters',
-                genre: 'Fuzz / Stoner Rock',
-                price: '120 kr',
-                status: 'past',
-                desc: 'Legendarisk spelning där kondensen rann längs väggarna i källaren.'
-            },
-            {
-                date: '2017-10-28',
-                displayDate: '28 OKT 2017',
-                band: 'The Baboon Show',
-                genre: 'Garage Punk',
-                price: '140 kr',
-                status: 'past',
-                desc: 'Fullsatt till sista plats och ett otroligt ös från första ackordet.'
-            }
-        ];
+    function escapeHtml(str) {
+      return str.replace(/[&<>"']/g, m => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+      })[m]);
+    }
 
-        function renderShows(filter = 'all') {
-            const showsList = document.getElementById('showsList');
-            showsList.innerHTML = '';
+    gbForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('authorInput').value.trim();
+      const msg = document.getElementById('messageInput').value.trim();
+      if (!name || !msg) return;
 
-            const filtered = showsData.filter(show => {
-                if (filter === 'upcoming') return show.status === 'upcoming';
-                if (filter === 'past') return show.status === 'past';
-                return true;
-            });
+      const entries = loadEntries();
+      const newEntry = {
+        name: name,
+        msg: msg,
+        date: new Date().toISOString().split('T')[0]
+      };
 
-            filtered.forEach(show => {
-                const card = document.createElement('div');
-                card.className = 'bg-white dark:bg-basement-darkCard p-5 sm:p-6 rounded-2xl border border-gray-200 dark:border-basement-darkBorder shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:border-basement-neonRed/50 transition-all';
-                
-                const isUpcoming = show.status === 'upcoming';
+      entries.unshift(newEntry);
+      localStorage.setItem('basement_entries', JSON.stringify(entries));
+      
+      document.getElementById('authorInput').value = '';
+      document.getElementById('messageInput').value = '';
+      renderEntries();
+    });
 
-                card.innerHTML = `
-                    <div class="flex items-start sm:items-center gap-4">
-                        <div class="px-3 py-2 rounded-xl bg-gray-100 dark:bg-basement-darkBg border border-gray-200 dark:border-basement-darkBorder font-mono text-center shrink-0">
-                            <span class="block text-xs font-bold text-basement-neonRed uppercase">${show.displayDate.split(' ')[1]}</span>
-                            <span class="block text-lg font-black leading-none">${show.displayDate.split(' ')[0]}</span>
-                            <span class="block text-[10px] text-gray-400">${show.displayDate.split(' ')[2]}</span>
-                        </div>
-                        <div>
-                            <div class="flex items-center gap-2 mb-1">
-                                <h4 class="font-display text-xl font-bold uppercase text-gray-900 dark:text-white">${show.band}</h4>
-                                <span class="px-2 py-0.5 rounded text-[10px] font-mono uppercase font-bold ${isUpcoming ? 'bg-emerald-500/10 text-emerald-500 border border-emerald-500/30' : 'bg-gray-500/10 text-gray-400 border border-gray-500/30'}">
-                                    ${isUpcoming ? 'Kommande' : 'Genomförd'}
-                                </span>
-                            </div>
-                            <p class="text-xs font-mono text-basement-orange mb-1">${show.genre}</p>
-                            <p class="text-xs text-gray-500 dark:text-gray-400">${show.desc}</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center justify-between sm:justify-end gap-4 border-t sm:border-t-0 border-gray-100 dark:border-basement-darkBorder pt-3 sm:pt-0 font-mono text-xs">
-                        <span class="font-bold text-gray-700 dark:text-gray-300">Entré: ${show.price}</span>
-                        <a href="#contact" class="px-4 py-2 rounded-lg bg-gray-100 dark:bg-basement-darkBg hover:bg-basement-neonRed hover:text-white font-bold uppercase transition-colors">
-                            ${isUpcoming ? 'Info' : 'Arkiv'}
-                        </a>
-                    </div>
-                `;
-                showsList.appendChild(card);
-            });
-        }
-
-        // Filter button handlers
-        const filterBtns = document.querySelectorAll('.show-filter-btn');
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                filterBtns.forEach(b => {
-                    b.classList.remove('bg-basement-neonRed', 'text-white', 'border-basement-neonRed');
-                    b.classList.add('border-gray-300', 'dark:border-basement-darkBorder');
-                });
-                e.target.classList.add('bg-basement-neonRed', 'text-white', 'border-basement-neonRed');
-                
-                const id = e.target.id;
-                if (id === 'filterUpcoming') renderShows('upcoming');
-                else if (id === 'filterPast') renderShows('past');
-                else renderShows('all');
-            });
-        });
-
-        renderShows('all');
-
-        /* ==========================================================================
-           4. GUESTBOOK / MEMORY WALL (localStorage key: 'basement_guestbook')
-           ========================================================================== */
-        const initialGbEntries = [
-            {
-                name: "Stefan 'Rocker'",
-                year: "2017 / Truckfighters",
-                message: "Glömmer aldrig stämningen på Svartbäcksgatan! Det fanns inget bättre ställe i Uppsala för riktig stoner rock.",
-                date: "2024-02-14"
-            },
-            {
-                name: "Lina M.",
-                year: "2016 - 2018",
-                message: "Mina bästa studentår tillbringades i den källaren. Tack för alla fantastiska konsertminnen!",
-                date: "2024-03-01"
-            }
-        ];
-
-        function getGuestbookEntries() {
-            const stored = localStorage.getItem('basement_guestbook');
-            if (stored) {
-                try { return JSON.parse(stored); } catch(e) { return initialGbEntries; }
-            }
-            localStorage.setItem('basement_guestbook', JSON.stringify(initialGbEntries));
-            return initialGbEntries;
-        }
-
-        function renderGuestbook() {
-            const container = document.getElementById('guestbookEntries');
-            container.innerHTML = '';
-            const entries = getGuestbookEntries();
-
-            entries.forEach(item => {
-                const card = document.createElement('div');
-                card.className = 'bg-white dark:bg-basement-darkCard p-5 rounded-2xl border border-gray-200 dark:border-basement-darkBorder shadow-sm';
-                card.innerHTML = `
-                    <div class="flex items-center justify-between mb-2 font-mono text-xs">
-                        <div class="flex items-center gap-2">
-                            <span class="w-2 h-2 rounded-full bg-basement-neonRed"></span>
-                            <strong class="text-gray-900 dark:text-white font-bold">${item.name}</strong>
-                        </div>
-                        <span class="text-basement-orange font-bold">${item.year || 'Besökare'}</span>
-                    </div>
-                    <p class="text-xs text-gray-600 dark:text-gray-300 italic mb-3 leading-relaxed">"${item.message}"</p>
-                    <div class="text-[10px] font-mono text-gray-400 flex justify-between items-center border-t border-gray-100 dark:border-basement-darkBorder/60 pt-2">
-                        <span><i class="fa-regular fa-calendar-check mr-1"></i> ${item.date}</span>
-                        <span class="text-basement-neonRed"><i class="fa-solid fa-heart"></i> The Basement Memory</span>
-                    </div>
-                `;
-                container.appendChild(card);
-            });
-        }
-
-        document.getElementById('guestbookForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const name = document.getElementById('gbName').value.trim();
-            const year = document.getElementById('gbYear').value.trim();
-            const message = document.getElementById('gbMessage').value.trim();
-
-            if (name && message) {
-                const entries = getGuestbookEntries();
-                entries.unshift({
-                    name: name,
-                    year: year || 'Besökare',
-                    message: message,
-                    date: new Date().toISOString().split('T')[0]
-                });
-
-                localStorage.setItem('basement_guestbook', JSON.stringify(entries));
-                renderGuestbook();
-                document.getElementById('guestbookForm').reset();
-                showToast('Ditt minne har lagts till på väggen!');
-            }
-        });
-
-        function showToast(msg) {
-            const toast = document.getElementById('toast');
-            document.getElementById('toastMsg').textContent = msg;
-            toast.classList.remove('translate-y-20', 'opacity-0');
-            setTimeout(() => {
-                toast.classList.add('translate-y-20', 'opacity-0');
-            }, 3000);
-        }
-
-        renderGuestbook();
-    </script>
+    renderEntries();
+  </script>
 </body>
 </html>
